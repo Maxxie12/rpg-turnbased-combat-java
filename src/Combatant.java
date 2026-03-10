@@ -12,6 +12,8 @@ public abstract class Combatant {
     private int defense;
     private int speed;
 
+    private boolean defending;
+
     public Combatant(String name, int maxHP, int maxMP, int attack, int defense, int speed) {
         this.name = name;
     
@@ -33,6 +35,11 @@ public abstract class Combatant {
     public int takeDamage(int damage) {
         int realDamage = (damage - this.defense);
 
+         if (defending) {
+        realDamage /= 2;
+        defending = false;
+        }   
+
         if (realDamage <0) { 
            realDamage = 0;
         }
@@ -42,7 +49,7 @@ public abstract class Combatant {
             this.currentHP = 0;
         }
     
-        return damage;
+        return realDamage;
     }
 
     
@@ -60,6 +67,10 @@ public abstract class Combatant {
 
     public int getMaxHP() {
         return maxHP;
+    }
+
+    public int getCurrentHP(){
+        return currentHP;
     }
 
     public int getMaxMP() {
@@ -96,6 +107,10 @@ public abstract class Combatant {
 
     public void setSpeed(int speed) {
         this.speed = speed;
+    }
+
+    public void setCurrentMP(int currentMP) {
+        this.currentMP = currentMP;
     }
 
 
